@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        monument: ["var(--monument)"],
+        gilroy: ["var(--gilroy)"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
