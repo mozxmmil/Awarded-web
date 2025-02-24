@@ -4,7 +4,7 @@ import Motion_Button from "@/motion/Motion_Button";
 import { motion } from "motion/react";
 
 const ButtonVariant = cva(
-  " relative whitespace-nowrap overflow-hidden px-5 py-2 hidden md:block",
+  " relative whitespace-nowrap overflow-hidden px-5 py-2 hidden md:block text-black ",
   {
     variants: {
       variant: {
@@ -14,6 +14,10 @@ const ButtonVariant = cva(
       fontSize: {
         sm: "font-semibold text-sm ",
         md: "font-bold text-base",
+      },
+      size: {
+        sm: "px-2 py-1",
+        md: "px-5 py-2",
       },
     },
     defaultVariants: {
@@ -27,12 +31,12 @@ interface Props
     VariantProps<typeof ButtonVariant> {}
 
 const CustomButton = forwardRef<HTMLButtonElement, Props>(
-  ({ children, variant, fontSize, className, ...props }, ref) => {
+  ({ children, variant, fontSize, size, className, ...props }, ref) => {
     return (
       <Motion_Button>
         <button
           ref={ref}
-          className={ButtonVariant({ variant, fontSize, className })}
+          className={ButtonVariant({ variant, fontSize, size, className })}
           {...props}
         >
           <div className="flex items-center gap-5">

@@ -30,7 +30,6 @@ const Navbar = () => {
                       "before:w-2 before:h-2 before:absolute before:top-1/2 before:-translate-y-1/2 before:bg-green-300 before:rounded-full before:-left-3 before:shadow-2xl before:shadow-green-200"
                   )}
                   href={item.link}
-                  
                 >
                   {item.name}
                 </Link>
