@@ -1,7 +1,9 @@
+"use client"
 import React, { ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import Motion_Button from "@/motion/Motion_Button";
 import { motion } from "motion/react";
+import { Twclsx } from "@/utils/twclxi";
 
 const ButtonVariant = cva(
   " relative whitespace-nowrap overflow-hidden px-5 py-2 hidden md:block text-black ",
@@ -9,7 +11,8 @@ const ButtonVariant = cva(
     variants: {
       variant: {
         default: "bg-white  rounded-md ",
-        destructive: "",
+        transparent: "bg-transparent rounded-full border-2 border-zinc-400 text-white hover:border-white",
+        OnlyOutline:"bg-transparent rounded-md  border-2 border-zinc-400 text-white hover:border-white"
       },
       fontSize: {
         sm: "font-semibold text-sm ",
@@ -19,6 +22,7 @@ const ButtonVariant = cva(
         sm: "px-2 py-1",
         md: "px-5 py-2",
       },
+
     },
     defaultVariants: {
       variant: "default",
@@ -36,7 +40,9 @@ const CustomButton = forwardRef<HTMLButtonElement, Props>(
       <Motion_Button>
         <button
           ref={ref}
-          className={ButtonVariant({ variant, fontSize, size, className })}
+          className={Twclsx(
+            ButtonVariant({ variant, fontSize, size, className })
+          )}
           {...props}
         >
           <div className="flex items-center gap-5">

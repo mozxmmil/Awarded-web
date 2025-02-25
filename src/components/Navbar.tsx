@@ -14,7 +14,7 @@ const Navbar = () => {
   const params = usePathname();
 
   return (
-    <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-0  border-b-[1px] border-b-zinc-600 ">
+    <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600   ">
       <div className="flex justify-start gap-20 items-center">
         <Link href={"/"} className="font-monument font-semibold text-white">
           Refocus
@@ -40,7 +40,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <div className="button sm:block hidden  m">
+      <div className="button sm:block hidden  ">
         <CustomButton fontSize="sm">
           <h1>Get Started </h1>
           <FaArrowRight />

@@ -3,7 +3,7 @@ import React from "react";
 import CustomButton from "./CustomButton";
 import { FaArrowRight } from "react-icons/fa6";
 import { productData, ProductItemType } from "@/utils/productItem";
-import { Twclsx } from "@/utils/twclxi";
+
 
 const Products = () => {
   return (
@@ -14,11 +14,11 @@ const Products = () => {
     </div>
   );
 };
-
 export default Products;
 
-interface ProductItemProps extends ProductItemType {}
+// *****************************************************************************************************
 
+type ProductItemProps = ProductItemType;
 export const ProductItem = ({
   text,
   active,
@@ -35,7 +35,7 @@ export const ProductItem = ({
           <div className=" w-fit flex items-center gap-5">
             {getStarted && (
               <CustomButton
-                className={Twclsx(getStarted && "bg-red-200")}
+                className={`${getStarted && "bg-red-200"}`}
                 fontSize="sm"
               >
                 <h1>Get Activate</h1>
@@ -45,7 +45,7 @@ export const ProductItem = ({
             {active && (
               <CustomButton
                 fontSize={"sm"}
-                className={Twclsx(active && "bg-green-200")}
+                className={`${active && "bg-green-200"}`}
               >
                 <h1>Activated</h1>
                 <FaArrowRight />
