@@ -19,7 +19,7 @@ const FooterContainer = () => {
   return (
     <div className="max-w-screen-xl min-h-60 mx-auto flex gap-5  justify-between">
       <div className="leftBox basis-1/2    ">
-        <h1 className="text-[7rem] font-monument">refocus.</h1>
+        <h1 className="text-[8rem] font-monument">refocus.</h1>
       </div>
       <div className="rightBox basis-1/2  flex  gap-10">
         <div className="basis-1/3 ">
