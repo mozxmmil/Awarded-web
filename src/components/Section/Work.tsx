@@ -1,45 +1,48 @@
 "use client";
-import { workImage } from "@/utils/workImage";
+import { WorkImage, workImage } from "@/utils/workImage";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useScroll, motion, AnimatePresence } from "motion/react";
 
 const Work = () => {
-
-  const [image, setImage] = useState(workImage);
+  console.log("rendering");
+  const [image, setImage] = useState<WorkImage[]>(workImage);
   const { scrollYProgress } = useScroll();
 
-  scrollYProgress.on("change", (data) => {
+  const Itemdata: { [key: number]: number[] } = {
+    0: [],
+    3: [0],
+    6: [0, 1],
+    9: [0, 1, 2, 3],
+  };
+  useEffect(() => {
+    const handleScrollChange = (data: number) => {
+      const ScrollValue = Math.floor(data * 100);
+      const DistanceValue = Itemdata[ScrollValue] || image.map((_, inx) => inx);
 
-    //todo: i have to optimize this code 
-    const HandleChangeData = (arr: Array<number>) => {
-      
-      setImage((prev) =>
-        prev.map((item, inx) => {
-          if (arr.indexOf(inx) === -1) {
-            return { ...item, isActive: false };
-          } else {
-            return { ...item, isActive: true };
-          }
-        })
-      );
+      setImage((prev) => {
+        const needsUpdate = prev.some(
+          (item, inx) => item.isActive !== DistanceValue.includes(inx)
+        );
+        if (!needsUpdate) return prev;
+
+        return prev.map((item, inx) => ({
+          ...item,
+          isActive: DistanceValue.includes(inx),
+        }));
+      });
     };
 
-    switch (Math.floor(data * 100)) {
-      case 0:
-        HandleChangeData([]);
-        break;
-      case 3:
-        HandleChangeData([0]);
-        break;
-      case 6:
-        HandleChangeData([0, 1, 2]);
-        break;
-      case 9:
-        HandleChangeData([0, 1, 2, 3]);
-        break;
-    }
-  });
+    // Throttle scroll updates to 60fps (~16ms)
+    let timeout: NodeJS.Timeout;
+    const throttledChange = (data: number) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => handleScrollChange(data), 16);
+    };
+
+    scrollYProgress.on("change", throttledChange);
+    return () => scrollYProgress.clearListeners(); // Cleanup
+  }, [scrollYProgress, image]);
 
   return (
     <div className="w-full relative md:mt-20 mt-10">
@@ -48,40 +51,44 @@ const Work = () => {
       </h1>
       <div className="imageContainer w-full h-full  absolute top-0 left-0 ">
         <AnimatePresence>
-          {image &&
-            image.map((item) => {
-              return (
-                item.isActive && (
-                  <motion.div
-                    initial={{
-                      filter: "blur(10px)",
-                      opacity: 0,
-                    }}
-                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                    transition={{
-                      type: "spring",
-                      duration: 1,
-                      bounce: 0.5,
-                      stiffness: 100,
-                    }}
-                    key={item.id}
-                    className="ImageContainer w-10 h-10 md:w-40 md:h-40 
-                overflow-hidden rounded-md absolute -translate-x-1/2 -translate-y-1/2  "
-                    style={{
-                      top: item.top,
-                      left: item.left,
-                    }}
-                  >
-                    <Image
-                      fill
-                      src={item.image}
-                      alt="image"
-                      className="object-cover"
-                    />
-                  </motion.div>
-                )
-              );
-            })}
+          {image.map((item, inx) =>
+            item.isActive ? (
+              <motion.div
+                key={inx} // Unique key for AnimatePresence
+                initial={{
+                  filter: "blur(10px)",
+                  opacity: 0,
+                  scale: 0.8,
+                }}
+                animate={{
+                  filter: "blur(0px)",
+                  opacity: 1,
+                  scale: 1,
+                }}
+                exit={{
+                  filter: "blur(10px)",
+                  opacity: 0,
+                  scale: 0.8,
+                }}
+                transition={{
+                  duration: 0.5, // Smoother duration
+                  ease: [0.4, 0, 0.2, 1], // Custom easing for natural feel
+                }}
+                className="ImageContainer w-10 h-10 md:w-40 md:h-40 overflow-hidden rounded-md absolute -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  top: item.top,
+                  left: item.left,
+                }}
+              >
+                <Image
+                  fill
+                  src={item.image}
+                  alt="image"
+                  className="object-cover"
+                />
+              </motion.div>
+            ) : null
+          )}
         </AnimatePresence>
       </div>
     </div>

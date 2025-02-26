@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600   ">
       <div className="flex justify-start gap-20 items-center">
-        <Link href={"/"} className="font-monument font-semibold text-white">
+        <Link href={"/"} className="font-monument font-semibold text-white select-none">
           Refocus
         </Link>
         <div className="hidden sm:hidden md:flex justify-between items-center  gap-14 ">
