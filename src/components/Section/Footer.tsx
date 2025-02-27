@@ -17,7 +17,7 @@ export default Footer;
 
 const FooterContainer = () => {
   return (
-    <div className="max-w-screen-xl min-h-60 mx-auto flex gap-5  justify-between">
+    <div className="max-w-screen-xl min-h-60 mx-auto flex gap-5  justify-between overflow-hidden">
       <div className="leftBox basis-1/2    ">
         <h1 className="text-[8rem] font-monument">refocus.</h1>
       </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Layout from "@/components/Layout";
 import localFont from "next/font/local";
 
+
 const gilroy = localFont({
   src: "fonts/Gilroy-Bold.ttf",
   variable: "--gilroy",
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${Monument.variable} ${gilroy.variable} antialiased`}
       >
-        <Layout>{children}</Layout>
+        
+          <Layout>{children}</Layout>
+        
       </body>
     </html>
   );

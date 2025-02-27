@@ -9,14 +9,21 @@ import React from "react";
 import CustomButton from "./ui/CustomButton";
 import { FaArrowRight } from "react-icons/fa6";
 import Motion_Magnet_effect from "@/motion/Motion_Maget_effect";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const Navbar = () => {
+  const { value } = useSelector((state: RootState) => state.counter);
+  console.log(value);
   const params = usePathname();
 
   return (
     <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600   ">
       <div className="flex justify-start gap-20 items-center">
-        <Link href={"/"} className="font-monument font-semibold text-white select-none">
+        <Link
+          href={"/"}
+          className="font-monument font-semibold text-white select-none"
+        >
           Refocus
         </Link>
         <div className="hidden sm:hidden md:flex justify-between items-center  gap-14 ">
