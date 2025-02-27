@@ -4,18 +4,21 @@ import { navdata, NavData } from "@/utils/navbarData";
 import { Twclsx } from "@/utils/twclxi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CiMenuFries } from "react-icons/ci";
+import {  CiMenuFries } from "react-icons/ci";
 import React from "react";
 import CustomButton from "./ui/CustomButton";
 import { FaArrowRight } from "react-icons/fa6";
 import Motion_Magnet_effect from "@/motion/Motion_Maget_effect";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { toggle } from "@/store/reducers/navbarSlice";
+import { IconX } from "@tabler/icons-react";
 
 const Navbar = () => {
-  const { value } = useSelector((state: RootState) => state.counter);
-  console.log(value);
+  const { isOpen } = useSelector((state: RootState) => state.navbar);
+  const dispatch = useDispatch<AppDispatch>();
   const params = usePathname();
+  console.log(isOpen);
 
   return (
     <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600   ">
@@ -53,11 +56,21 @@ const Navbar = () => {
           <FaArrowRight />
         </CustomButton>
       </div>
-      <CiMenuFries
-        className="block md:hidden"
-        size={"1.5rem"}
-        style={{ color: "white", fontWeight: "bold" }}
-      />
+      <div onClick={() => dispatch(toggle())} className="block md:hidden">
+        {!isOpen ? (
+          <CiMenuFries
+            className="block md:hidden"
+            size={"1.5rem"}
+            style={{ color: "white", fontWeight: "bold" }}
+          />
+        ) : (
+          <IconX
+            className="block md:hidden"
+            size={"1.5rem"}
+            style={{ color: "white", fontWeight: "bold" }}
+          />
+        )}
+      </div>
     </nav>
   );
 };
