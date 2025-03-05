@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import Navbar from "./Navbar";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import SideBar from "./Section/SideBar";
 
 interface Props {
   children: React.ReactNode;
@@ -10,9 +11,10 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="w-full h-full bg-black">
+    <div className=" bg-black relative  ">
       <Provider store={store}>
         <Navbar />
+        <SideBar />
         {children}
       </Provider>
     </div>

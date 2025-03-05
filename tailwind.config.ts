@@ -11,6 +11,8 @@ export default {
       fontFamily: {
         monument: ["var(--monument)"],
         gilroy: ["var(--gilroy)"],
+        geist_Mono: ["var(--font-geist-mono)"],
+        geist:["var(--font-geist-sans)"]
       },
       colors: {
         background: "var(--background)",

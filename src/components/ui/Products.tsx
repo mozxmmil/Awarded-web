@@ -5,24 +5,30 @@ import { FaArrowRight } from "react-icons/fa6";
 import { productData, ProductItemType } from "@/utils/productItem";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { getMobileView } from "@/utils/getMobileView";
 
 const Products = () => {
   const [position, setPosition] = useState(0);
+  const { isMobile } = getMobileView();
 
   const handleHover = (id: number) => {
-    setPosition(id * 11);
+    if (isMobile) {
+      setPosition(id * 8);
+    } else {
+      setPosition(id * 11);
+    }
   };
-  
+
   return (
-    <div className="w-full h-[35rem]   relative ">
+    <div className="w-full h-[35rem]  relative  mt-7 ">
       {productData.map((item, inx) => (
         <ProductItem key={inx} {...item} HandleHover={handleHover} id={inx} />
       ))}
-      <div className="w-full h-full absolute  inset-0  pointer-events-none text-black">
+      <div className="w-full h-full  absolute  inset-0  pointer-events-none text-black">
         <motion.div
           animate={{ y: position + "rem" }}
-          transition={{ duration: 0.3, ease:"easeInOut" }}
-          className="windows h-44 w-60  absolute left-[33%] overflow-hidden  "
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="windows md:h-44 md:w-60 h-32 w-32 absolute left-[33%] overflow-hidden  "
         >
           <motion.div
             animate={{ y: -position + "rem" }}
@@ -88,20 +94,23 @@ export const ProductItem = ({
   id,
 }: ProductItemProps) => {
   return (
-    <div className="hover:bg-zinc-700  hover:cursor-pointer h-44 ">
+    <div className="hover:bg-zinc-700  hover:cursor-pointer md:h-44 h-32  w-full">
       <motion.div
         onMouseEnter={() => HandleHover(id)}
         className="max-w-screen-xl  mx-auto  h-full flex items-center justify-between "
       >
-        <h1 className="text-6xl font-bold capitalize w-1/2 ">{text}</h1>
+        <h1 className="md:text-6xl text-3xl font-bold capitalize w-1/2 ">
+          {text}
+        </h1>
         <div className="textAndButtonContainer  w-1/3 h-full flex flex-col justify-center ">
-          <p className=" py-5  text-base text-gray-300">{paragraph}</p>
+          <p className=" md:py-5  md:text-base text-sm font-geist text-gray-300">{paragraph}</p>
 
           <div className=" w-fit flex items-center gap-5">
             {getStarted && (
               <CustomButton
                 className={`${getStarted && "bg-red-200"}`}
                 fontSize="sm"
+                
               >
                 <h1>Get Activate</h1>
                 <FaArrowRight />
@@ -111,6 +120,7 @@ export const ProductItem = ({
               <CustomButton
                 fontSize={"sm"}
                 className={`${active && "bg-green-200"}`}
+                
               >
                 <h1>Activated</h1>
                 <FaArrowRight />

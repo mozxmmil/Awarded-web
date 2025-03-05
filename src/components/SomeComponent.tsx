@@ -15,4 +15,4 @@ const SomeComponent = () => {
   );
 };
 
-export default SomeComponent; 
+export default SomeComponent;

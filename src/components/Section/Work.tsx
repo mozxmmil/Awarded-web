@@ -3,34 +3,60 @@ import { WorkImage, workImage } from "@/utils/workImage";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useScroll, motion, AnimatePresence } from "motion/react";
+import { getMobileView } from "@/utils/getMobileView";
 
 const Work = () => {
-  console.log("rendering");
   const [image, setImage] = useState<WorkImage[]>(workImage);
+  const { isMobile } = getMobileView();
   const { scrollYProgress } = useScroll();
 
-  const Itemdata: { [key: number]: number[] } = {
+  const itemData: { [key: number]: number[] } = {
     0: [],
     3: [0],
     6: [0, 1],
     9: [0, 1, 2, 3],
   };
+  const itemDataMobile: { [key: number]: number[] } = {
+    0: [],
+    1: [0],
+    2: [0, 1],
+    3: [0, 1, 2, 3],
+  };
   useEffect(() => {
     const handleScrollChange = (data: number) => {
       const ScrollValue = Math.floor(data * 100);
-      const DistanceValue = Itemdata[ScrollValue] || image.map((_, inx) => inx);
 
-      setImage((prev) => {
-        const needsUpdate = prev.some(
-          (item, inx) => item.isActive !== DistanceValue.includes(inx)
-        );
-        if (!needsUpdate) return prev;
+      if (isMobile) {
+        const DistanceValue =
+          itemDataMobile[ScrollValue] || image.map((_, inx) => inx);
 
-        return prev.map((item, inx) => ({
-          ...item,
-          isActive: DistanceValue.includes(inx),
-        }));
-      });
+        setImage((prev) => {
+          const needUpdata = prev.some(
+            (item, inx) => item.isActive !== DistanceValue.includes(inx)
+          );
+          if (!needUpdata) return prev;
+
+          return prev.map((item, inx) => ({
+            ...item,
+            isActive: DistanceValue.includes(inx),
+          }));
+        });
+      } else {
+        const DistanceValue =
+          itemData[ScrollValue] || image.map((_, inx) => inx);
+
+        setImage((prev) => {
+          const needsUpdate = prev.some(
+            (item, inx) => item.isActive !== DistanceValue.includes(inx)
+          );
+          if (!needsUpdate) return prev;
+
+          return prev.map((item, inx) => ({
+            ...item,
+            isActive: DistanceValue.includes(inx),
+          }));
+        });
+      }
     };
 
     // Throttle scroll updates to 60fps (~16ms)
@@ -41,7 +67,9 @@ const Work = () => {
     };
 
     scrollYProgress.on("change", throttledChange);
-    return () => scrollYProgress.clearListeners(); // Cleanup
+    return () => {
+      scrollYProgress.clearListeners();
+    }; // Cleanup
   }, [scrollYProgress, image]);
 
   return (
@@ -59,6 +87,7 @@ const Work = () => {
                   filter: "blur(10px)",
                   opacity: 0,
                   scale: 0.8,
+                  x:"-50%"
                 }}
                 animate={{
                   filter: "blur(0px)",
@@ -74,7 +103,7 @@ const Work = () => {
                   duration: 0.5, // Smoother duration
                   ease: [0.4, 0, 0.2, 1], // Custom easing for natural feel
                 }}
-                className="ImageContainer w-10 h-10 md:w-40 md:h-40 overflow-hidden rounded-md absolute -translate-x-1/2 -translate-y-1/2"
+                className="ImageContainer w-16 h-16 md:w-40 md:h-40 overflow-hidden rounded-md absolute -translate-x-1/2 -translate-y-1/2"
                 style={{
                   top: item.top,
                   left: item.left,

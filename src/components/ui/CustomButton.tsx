@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import Motion_Button from "@/motion/Motion_Button";
@@ -11,8 +11,10 @@ const ButtonVariant = cva(
     variants: {
       variant: {
         default: "bg-white  rounded-md ",
-        transparent: "bg-transparent rounded-full border-2 border-zinc-400 text-white hover:border-white",
-        OnlyOutline:"bg-transparent rounded-md  border-2 border-zinc-400 text-white hover:border-white"
+        transparent:
+          "bg-transparent rounded-full border-2 border-zinc-400 text-white hover:border-white",
+        OnlyOutline:
+          "bg-transparent rounded-md  border-2 border-zinc-400 text-white hover:border-white",
       },
       fontSize: {
         sm: "font-semibold text-sm ",
@@ -22,7 +24,10 @@ const ButtonVariant = cva(
         sm: "px-2 py-1",
         md: "px-5 py-2",
       },
-
+      screen: {
+        mobile: "block md:hidden",
+        pc: "hidden md:block",
+      },
     },
     defaultVariants: {
       variant: "default",

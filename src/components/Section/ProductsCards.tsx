@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import CustomButton from "../ui/CustomButton";
 const ProductsCards = () => {
   return (
-    <div className="max-w-screen-xl  h-96 mx-auto flex items-center gap-[1.5px] flex-col md:flex-row ">
+    <div className="md:max-w-screen-xl w-full  h-96 mx-auto flex items-center gap-[1.5px] flex-col md:flex-row  ">
       <Card
         topHeading="Up Next:Culture"
         secondHeading="who we are"
@@ -31,12 +31,12 @@ export default ProductsCards;
 //***************************************************************************************/
 
 const cardVariant = cva(
-  "w-[40%] h-full bg-zinc-700 rounded-lg text-white px-5 py-5 flex justify-between flex-col transition-all duration-150 ease-in-out cursor-pointer group",
+  "md:w-[40%]  h-full bg-zinc-700 rounded-lg text-white px-5 py-5 flex justify-between flex-col transition-all duration-150 ease-in-out cursor-pointer group",
   {
     variants: {
       variant: {
-        default: "w-[40%] h-full ",
-        big: "w-[60%] h-full ",
+        default: "md:w-[40%] w-full h-full ",
+        big: "md:w-[60%] w-full h-full ",
       },
       effects: {
         hover: "hover:bg-violet-700",
@@ -77,7 +77,7 @@ export const Card: React.FC<CardProps> = ({
       <div>
         {showMaindHeading && (
           <>
-            <h1 className="font-bold text-6xl mt-5">{thirdHeading} </h1>
+            <h1 className="font-bold text-6xl mt-5  text-nowrap md:text-wrap w-1/2">{thirdHeading} </h1>
             <div className="w-fit mt-4">
               <CustomButton variant={"transparent"}>
                 <h1>Contact us</h1>

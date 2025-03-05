@@ -6,7 +6,7 @@ import Products from "./ui/Products";
 import ProductsCards from "./Section/ProductsCards";
 import Footer from "./Section/Footer";
 import LocomotiveScroll from "locomotive-scroll";
-import SideBar from "./Section/SideBar";
+// import SideBar from "./Section/SideBar";
 
 const Landing_Page = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -25,9 +25,9 @@ const Landing_Page = () => {
   return (
     <div
       ref={scrollRef}
-      className="w-full h-[calc(100%_-_3rem)] min-h-screen bg-black text-white pb-10 relative"
+      className="w-full h-[calc(100%_-_3rem)] min-h-screen bg-black text-white pb-10"
     >
-      <SideBar />
+    
       <Work />
       <Sliders />
       <Products />

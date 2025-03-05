@@ -18,10 +18,10 @@ const Navbar = () => {
   const { isOpen } = useSelector((state: RootState) => state.navbar);
   const dispatch = useDispatch<AppDispatch>();
   const params = usePathname();
-  console.log(isOpen);
+  
 
   return (
-    <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600   ">
+    <nav className="md:max-w-screen-xl md:mx-auto py-6  top-0  flex justify-between gap-20 items-center px-3 md:px-[1px]  border-b-[1px] border-b-zinc-600  relative ">
       <div className="flex justify-start gap-20 items-center">
         <Link
           href={"/"}
@@ -56,16 +56,16 @@ const Navbar = () => {
           <FaArrowRight />
         </CustomButton>
       </div>
-      <div onClick={() => dispatch(toggle())} className="block md:hidden">
+      <div onClick={() => dispatch(toggle())} className="block md:hidden  ">
         {!isOpen ? (
           <CiMenuFries
-            className="block md:hidden"
+            className="block md:hidden "
             size={"1.5rem"}
             style={{ color: "white", fontWeight: "bold" }}
           />
         ) : (
           <IconX
-            className="block md:hidden"
+            className="block md:hidden "
             size={"1.5rem"}
             style={{ color: "white", fontWeight: "bold" }}
           />
