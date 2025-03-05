@@ -3,11 +3,11 @@ import { WorkImage, workImage } from "@/utils/workImage";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useScroll, motion, AnimatePresence } from "motion/react";
-import { getMobileView } from "@/utils/getMobileView";
+import useGetMobileView from "@/hooks/useGetMobileView";
 
 const Work = () => {
   const [image, setImage] = useState<WorkImage[]>(workImage);
-  const { isMobile } = getMobileView();
+  const { isMobile } = useGetMobileView();
   const { scrollYProgress } = useScroll();
 
   const itemData: { [key: number]: number[] } = {
@@ -70,7 +70,7 @@ const Work = () => {
     return () => {
       scrollYProgress.clearListeners();
     }; // Cleanup
-  }, [scrollYProgress, image]);
+  }, [scrollYProgress, image, isMobile]);
 
   return (
     <div className="w-full relative md:mt-20 mt-10">
@@ -87,7 +87,7 @@ const Work = () => {
                   filter: "blur(10px)",
                   opacity: 0,
                   scale: 0.8,
-                  x:"-50%"
+                  x: "-50%",
                 }}
                 animate={{
                   filter: "blur(0px)",

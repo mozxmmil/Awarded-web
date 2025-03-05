@@ -5,11 +5,11 @@ import { FaArrowRight } from "react-icons/fa6";
 import { productData, ProductItemType } from "@/utils/productItem";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { getMobileView } from "@/utils/getMobileView";
+import useGetMobileView from "@/hooks/useGetMobileView";
 
 const Products = () => {
   const [position, setPosition] = useState(0);
-  const { isMobile } = getMobileView();
+  const { isMobile } = useGetMobileView();
 
   const handleHover = (id: number) => {
     if (isMobile) {
@@ -103,14 +103,15 @@ export const ProductItem = ({
           {text}
         </h1>
         <div className="textAndButtonContainer  w-1/3 h-full flex flex-col justify-center ">
-          <p className=" md:py-5  md:text-base text-sm font-geist text-gray-300">{paragraph}</p>
+          <p className=" md:py-5  md:text-base text-sm font-geist text-gray-300">
+            {paragraph}
+          </p>
 
           <div className=" w-fit flex items-center gap-5">
             {getStarted && (
               <CustomButton
                 className={`${getStarted && "bg-red-200"}`}
                 fontSize="sm"
-                
               >
                 <h1>Get Activate</h1>
                 <FaArrowRight />
@@ -120,7 +121,6 @@ export const ProductItem = ({
               <CustomButton
                 fontSize={"sm"}
                 className={`${active && "bg-green-200"}`}
-                
               >
                 <h1>Activated</h1>
                 <FaArrowRight />
